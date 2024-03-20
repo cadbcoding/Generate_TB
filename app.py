@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import random
 
 app = Flask(__name__)
 
+# Your existing function to generate unique values
 def generate_unique_value(unique_values):
     multiple = random.randint(50, 100)
     value = -multiple * 1000
@@ -14,9 +15,11 @@ def generate_unique_value(unique_values):
     unique_values.add(value)
     return value
 
+# Route for handling form submission
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
+        # Handle form submission
         category_C_vars = ['C1', 'C2', 'C3', 'C4']
         variables_values = {}
         unique_values = set()
@@ -38,7 +41,10 @@ def index():
 
         total = sum(d['C'] + d['D'] + d['B'] + d['A'] for d in variables_values.values())
         return render_template('result.html', variables_values=variables_values, total=total)
-    return render_template('index.html')
+    else:
+        # Render index.html for GET requests
+        return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
