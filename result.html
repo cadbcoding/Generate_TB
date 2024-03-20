@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate TB</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .regenerate-btn {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .regenerate-btn input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .regenerate-btn input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Trial Balance</h1>
+        <table>
+            <tr>
+                <th>FS Item</th>
+                <th>Income</th>
+                <th>Expense</th>
+                <th>Liability</th>
+                <th>Asset</th>
+            </tr>
+            {% for var, values in variables_values.items() %}
+            {% set var_num = var.split('C')[1] %}
+            <tr>
+                <td>{{ var_num }}</td>
+                <td>{{ values['C'] }}</td>
+                <td>{{ values['D'] }}</td>
+                <td>{{ values['B'] }}</td>
+                <td>{{ values['A'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <div class="regenerate-btn">
+            <form action="/" method="post">
+                <input type="submit" value="Regenerate Values">
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Powered by CA. Dhruval Bhavsar</p>
+    </div>
+</body>
+</html>
